@@ -1,5 +1,5 @@
 import { LABELS, DEFAULTS, ALARM_NAMES, STORAGE_KEYS } from '../shared/constants.js';
-import { extractExtension, extractDomain, extractFilename } from '../shared/utils.js';
+import { extractExtension, extractFilename } from '../shared/utils.js';
 import { createRecord } from '../storage/schema.js';
 import { saveRecord, getRecord, updateRecord, updateLabel, getSettings, saveSettings, refreshStatuses, pruneOldRecords } from '../storage/db.js';
 import { classify } from '../rules/engine.js';
@@ -94,6 +94,8 @@ chrome.downloads.onChanged.addListener(async (delta) => {
     };
 
     const result = classify(download, settings);
+    console.log(`[KeepTrack] "${finalFilename}" → ${result.label} (${Math.round(result.confidence * 100)}%) | ${result.reasons.join(', ')}`);
+
     let expiresAt = null;
     if (result.label !== LABELS.KEEP) {
       const expiry = new Date();
@@ -203,4 +205,4 @@ async function updateBadge() {
   chrome.action.setBadgeBackgroundColor({ color: count > 0 ? '#e74c3c' : '#888' });
 }
 
-// Service worker ready
+console.log('[KeepTrack] Service worker loaded.');
