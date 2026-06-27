@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "KeepTrack — Download Intent Capture",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Know which downloads to keep vs. discard — decided at download time, not cleanup time. Local-only, zero telemetry.",
   "permissions": [
     "downloads",

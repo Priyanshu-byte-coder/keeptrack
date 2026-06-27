@@ -24,8 +24,8 @@
 <tr>
 <td align="center">
 <br>
-<a href="https://github.com/Priyanshu-byte-coder/keeptrack/releases/download/v1.1.0/keeptrack-v1.1.0.zip">
-<img src="https://img.shields.io/badge/%E2%AC%87%EF%B8%8F_Download_KeepTrack-v1.1.0-E53935?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Download" height="45">
+<a href="https://github.com/Priyanshu-byte-coder/keeptrack/releases/download/v1.2.0/keeptrack-v1.2.0.zip">
+<img src="https://img.shields.io/badge/%E2%AC%87%EF%B8%8F_Download_KeepTrack-v1.2.0-E53935?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Download" height="45">
 </a>
 <br>
 <br>
@@ -58,8 +58,9 @@ KeepTrack silently classifies every download as **keep**, **temporary**, or **am
 - **High confidence** → silent, no interruption
 - **Ambiguous** → quick notification: tap "Keep" or "Temporary"
 - **Once a week** → 30-second review of expiring files in the popup
-
-**KeepTrack never deletes your files.** It labels, reminds, and lets you decide.
+- **Change your mind anytime** → toggle any file between Keep, Temporary, and Ambiguous from the Settings page
+- **Delete expired files** → delete individual files or bulk-delete all expired files directly from the popup
+- **Clean Up Now** → skip the wait and instantly flag all temporary files for review
 
 ---
 
@@ -67,7 +68,7 @@ KeepTrack silently classifies every download as **keep**, **temporary**, or **am
 
 ### Option 1: Direct Download (Recommended)
 
-<a href="https://github.com/Priyanshu-byte-coder/keeptrack/releases/download/v1.1.0/keeptrack-v1.1.0.zip">
+<a href="https://github.com/Priyanshu-byte-coder/keeptrack/releases/download/v1.2.0/keeptrack-v1.2.0.zip">
   <img src="https://img.shields.io/badge/%E2%AC%87%EF%B8%8F_Download_ZIP-E53935?style=for-the-badge" alt="Download ZIP" height="30">
 </a>
 

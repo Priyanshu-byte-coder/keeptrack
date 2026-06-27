@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.2.0] - 2026-06-27
+### Added
+- **Delete expired files** — delete individual files or bulk-delete all expired files from the popup using `chrome.downloads.removeFile()`
+- **All Downloads list** in Settings — view every tracked download with search, filter by label, and one-click label toggle (Keep / Temporary / Ambiguous)
+- **Clean Up Now notification** — shows a notification prompting you to open the popup after cleanup
+
+### Changed
+- Larger logo sizes across popup, options, and onboarding pages
+- Updated download links and badges to v1.2.0
+
 ## [1.1.0] - 2026-06-27
 ### Added
 - **Clean Up Now** — skip the wait and mark all temporary files as expiring instantly from Settings
