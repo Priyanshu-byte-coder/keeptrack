@@ -130,13 +130,33 @@ exportBtn.addEventListener('click', async () => {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `triage-export-${new Date().toISOString().slice(0, 10)}.json`;
+  a.download = `keeptrack-export-${new Date().toISOString().slice(0, 10)}.json`;
   a.click();
   URL.revokeObjectURL(url);
 });
 
+// ── Debug ──
+
+const forceExpireBtn = document.getElementById('force-expire-btn');
+forceExpireBtn.addEventListener('click', async () => {
+  const records = await getAllRecords();
+  const now = new Date();
+  // Set expiry to 1 minute ago for all non-keep records
+  const pastExpiry = new Date(now.getTime() - 60000).toISOString();
+  let count = 0;
+  for (const [id, r] of Object.entries(records)) {
+    if (r.label !== 'keep' && r.expiresAt) {
+      const { updateRecord } = await import('../storage/db.js');
+      await updateRecord(parseInt(id), { expiresAt: pastExpiry, status: 'expiring' });
+      count++;
+    }
+  }
+  saveStatus.textContent = `Forced ${count} files to expire.`;
+  setTimeout(() => { saveStatus.textContent = ''; }, 3000);
+});
+
 clearBtn.addEventListener('click', async () => {
-  if (!confirm('This will delete all Triage records and reset settings. Are you sure?')) return;
+  if (!confirm('This will delete all KeepTrack records and reset settings. Are you sure?')) return;
   await chrome.storage.local.clear();
   current = await getSettings(); // re-init with defaults
   await load();
