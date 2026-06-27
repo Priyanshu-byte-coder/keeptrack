@@ -41,7 +41,7 @@ Stop spending 30 minutes every month guessing which files matter. KeepTrack reme
 ### From Source (Developer Mode)
 1. Clone this repo
    ```bash
-   git clone https://github.com/your-username/keeptrack.git
+   git clone https://github.com/Priyanshu-byte-coder/keeptrack.git
    ```
 2. Open `chrome://extensions` in Chrome
 3. Enable **Developer mode** (top right toggle)

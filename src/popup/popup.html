@@ -8,7 +8,10 @@
 </head>
 <body>
   <header>
-    <h1>KeepTrack</h1>
+    <div class="header-left">
+      <img src="../../icons/icon-32.png" alt="KeepTrack" class="header-logo">
+      <h1>Keep<span class="brand-green">Track</span></h1>
+    </div>
     <button id="settings-btn" title="Settings">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
@@ -17,11 +20,11 @@
   </header>
 
   <div id="summary" class="summary-bar">
-    <span id="expiring-count">0 expiring</span>
+    <span class="stat"><span class="stat-dot expiring"></span> <span id="expiring-count">0 expiring</span></span>
     <span class="dot">·</span>
-    <span id="kept-count">0 kept</span>
+    <span class="stat"><span class="stat-dot kept"></span> <span id="kept-count">0 kept</span></span>
     <span class="dot">·</span>
-    <span id="temp-count">0 temporary</span>
+    <span class="stat"><span class="stat-dot temp"></span> <span id="temp-count">0 temporary</span></span>
   </div>
 
   <div id="dry-run-banner" class="banner hidden">
@@ -33,7 +36,7 @@
     <h2 id="expiring-header">Expiring Soon</h2>
     <div id="expiring-list" class="file-list"></div>
     <div id="no-expiring" class="empty-state hidden">
-      No files expiring this week.
+      All clear — no files expiring this week.
     </div>
   </section>
 
