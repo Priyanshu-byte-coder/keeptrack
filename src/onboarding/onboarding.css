@@ -6,15 +6,16 @@
 
 body {
   font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-  background: #F5F5F5;
-  color: #1C2833;
+  background: #F8F9FA;
+  color: #2D3436;
   min-height: 100vh;
+  line-height: 1.5;
 }
 
 .container {
   max-width: 800px;
   margin: 0 auto;
-  padding: 40px 24px;
+  padding: 48px 24px;
 }
 
 /* ── Header ── */
@@ -25,31 +26,33 @@ header {
 }
 
 .logo {
-  width: 120px;
-  height: 120px;
-  margin-bottom: 16px;
+  width: 88px;
+  height: 88px;
+  margin-bottom: 18px;
+  border-radius: 16px;
 }
 
 h1 {
-  font-size: 28px;
+  font-size: 26px;
   font-weight: 300;
-  color: #1C2833;
+  color: #2D3436;
 }
 
 .brand {
   font-weight: 700;
-  color: #43A047;
+  color: #2E7D32;
 }
 
 .subtitle {
-  color: #777;
-  margin-top: 8px;
-  line-height: 1.6;
+  color: #6C757D;
+  margin-top: 10px;
+  line-height: 1.65;
   font-size: 15px;
 }
 
 .subtitle strong {
   color: #E53935;
+  font-weight: 600;
 }
 
 /* ── Dry Run Badge ── */
@@ -57,22 +60,23 @@ h1 {
 .dry-run-badge {
   text-align: center;
   background: #FFF8E1;
-  color: #F57F17;
-  padding: 8px 24px;
-  border-radius: 20px;
+  color: #E65100;
+  padding: 7px 22px;
+  border-radius: 16px;
   border: 1px solid #FFE082;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   width: fit-content;
   margin: 0 auto 28px;
+  letter-spacing: 0.5px;
 }
 
 /* ── Scanning ── */
 
 .scanning {
   text-align: center;
-  padding: 40px;
-  color: #999;
+  padding: 48px;
+  color: #868E96;
   font-size: 15px;
   display: flex;
   align-items: center;
@@ -81,10 +85,10 @@ h1 {
 }
 
 .spinner {
-  width: 22px;
-  height: 22px;
-  border: 2.5px solid #E0E0E0;
-  border-top: 2.5px solid #43A047;
+  width: 20px;
+  height: 20px;
+  border: 2.5px solid #E9ECEF;
+  border-top: 2.5px solid #2E7D32;
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
@@ -101,15 +105,15 @@ h1 {
   text-align: center;
   font-size: 15px;
   margin-bottom: 20px;
-  color: #666;
+  color: #6C757D;
 }
 
 .summary .count {
   font-weight: 700;
-  margin: 0 4px;
+  margin: 0 3px;
 }
 
-.summary .keep { color: #43A047; }
+.summary .keep { color: #2E7D32; }
 .summary .temporary { color: #E65100; }
 .summary .ambiguous { color: #F57F17; }
 
@@ -118,7 +122,7 @@ h1 {
 .table-wrapper {
   max-height: 400px;
   overflow-y: auto;
-  border: 1px solid #E0E0E0;
+  border: 1px solid #E9ECEF;
   border-radius: 10px;
   margin-bottom: 28px;
   background: #fff;
@@ -137,25 +141,25 @@ thead {
 }
 
 th {
-  background: #FAFAFA;
-  color: #999;
+  background: #F8F9FA;
+  color: #868E96;
   font-weight: 600;
   text-align: left;
   padding: 10px 14px;
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  border-bottom: 1px solid #E0E0E0;
+  border-bottom: 1px solid #E9ECEF;
 }
 
 td {
   padding: 9px 14px;
-  border-bottom: 1px solid #F0F0F0;
+  border-bottom: 1px solid #F1F3F5;
   vertical-align: top;
 }
 
 tr:hover td {
-  background: #FAFAFA;
+  background: #F8F9FA;
 }
 
 .filename-cell {
@@ -163,7 +167,7 @@ tr:hover td {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  color: #333;
+  color: #2D3436;
   font-weight: 500;
 }
 
@@ -172,18 +176,19 @@ tr:hover td {
   white-space: nowrap;
 }
 
-.label-keep { color: #43A047; }
+.label-keep { color: #2E7D32; }
 .label-temporary { color: #E65100; }
 .label-ambiguous { color: #F57F17; }
 
 .confidence-cell {
-  color: #999;
+  color: #868E96;
 }
 
 .reasons-cell {
   font-size: 11px;
-  color: #AAA;
+  color: #ADB5BD;
   max-width: 200px;
+  line-height: 1.5;
 }
 
 /* ── Actions ── */
@@ -196,31 +201,36 @@ tr:hover td {
 }
 
 .btn {
-  padding: 12px 28px;
+  padding: 11px 28px;
   border: none;
   border-radius: 8px;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.15s;
+  font-family: inherit;
 }
 
-.btn:hover { opacity: 0.88; }
+.btn:hover { opacity: 0.9; }
+.btn:active { transform: scale(0.98); }
 
 .btn-primary {
-  background: #43A047;
+  background: #2E7D32;
   color: #fff;
-  box-shadow: 0 2px 8px rgba(67, 160, 71, 0.25);
+  box-shadow: 0 2px 8px rgba(46, 125, 50, 0.2);
 }
+
+.btn-primary:hover { background: #256D29; }
 
 .btn-secondary {
   background: #fff;
-  color: #666;
-  border: 1px solid #DDD;
+  color: #495057;
+  border: 1px solid #DEE2E6;
 }
 
 .btn-secondary:hover {
-  background: #F5F5F5;
+  background: #F8F9FA;
+  border-color: #ADB5BD;
 }
 
 /* ── Trust Note ── */
@@ -228,8 +238,8 @@ tr:hover td {
 .trust-note {
   text-align: center;
   font-size: 12px;
-  color: #AAA;
-  line-height: 1.6;
+  color: #ADB5BD;
+  line-height: 1.7;
   max-width: 520px;
   margin: 0 auto;
 }
@@ -238,4 +248,5 @@ tr:hover td {
 
 .table-wrapper::-webkit-scrollbar { width: 5px; }
 .table-wrapper::-webkit-scrollbar-track { background: #fff; }
-.table-wrapper::-webkit-scrollbar-thumb { background: #DDD; border-radius: 3px; }
+.table-wrapper::-webkit-scrollbar-thumb { background: #DEE2E6; border-radius: 3px; }
+.table-wrapper::-webkit-scrollbar-thumb:hover { background: #CED4DA; }

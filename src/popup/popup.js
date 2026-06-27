@@ -89,12 +89,30 @@ function createFileCard(record) {
   card.className = 'file-card';
 
   const days = daysFromNow(record.expiresAt);
-  const expiryText = days > 0 ? `expires ${formatDate(record.expiresAt)}` : 'expired';
+  const expiryText = days > 0 ? `${formatDate(record.expiresAt)}` : 'Expired';
+  const expiryClass = days <= 0 ? 'expiry-warn' : (days <= 3 ? 'expiry-warn' : 'expiry-ok');
   const domain = record.url ? extractDomainDisplay(record.url) : 'unknown source';
 
+  // SVG icons for meta rows (inline, tiny)
+  const iconSource = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>';
+  const iconDate = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>';
+  const iconExpiry = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>';
+
   card.innerHTML = `
-    <div class="filename">${escapeHtml(record.filename)}${record._fileGone ? ' <span class="file-gone">(file moved or deleted)</span>' : ''}</div>
-    <div class="meta">from: ${escapeHtml(domain)} · ${formatDate(record.downloadTime)} · ${expiryText}</div>
+    <div class="filename">${escapeHtml(record.filename)}${record._fileGone ? ' <span class="file-gone">file missing</span>' : ''}</div>
+    <div class="meta">
+      <div class="meta-row">
+        <span class="meta-icon">${iconSource}</span>
+        <span class="meta-value">${escapeHtml(domain)}</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-icon">${iconDate}</span>
+        <span class="meta-value">${formatDate(record.downloadTime)}</span>
+        <span style="color:#DEE2E6;margin:0 2px;">·</span>
+        <span class="meta-icon">${iconExpiry}</span>
+        <span class="meta-value ${expiryClass}">${expiryText}</span>
+      </div>
+    </div>
     <div class="actions">
       <button class="btn btn-keep" data-id="${record.id}" data-action="keep">Keep</button>
       <button class="btn btn-expire" data-id="${record.id}" data-action="expire">Let Expire</button>
@@ -103,7 +121,7 @@ function createFileCard(record) {
         : '<button class="btn btn-folder" data-id="' + record.id + '" data-action="show">Show in Folder</button>'
       }
       ${!record._fileGone
-        ? '<button class="btn btn-expire" data-id="' + record.id + '" data-action="delete" style="color:#E53935;border-color:#FFCDD2;">Delete</button>'
+        ? '<button class="btn btn-delete" data-id="' + record.id + '" data-action="delete">Delete</button>'
         : ''
       }
     </div>
