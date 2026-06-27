@@ -94,6 +94,7 @@ chrome.downloads.onChanged.addListener(async (delta) => {
     };
 
     const result = classify(download, settings);
+    console.log(`[KeepTrack] Classified "${finalFilename}" as ${result.label} (${Math.round(result.confidence * 100)}%) | reasons: ${result.reasons.join(', ')} | dryRun: ${settings.dryRunMode} | notif: ${settings.notificationsEnabled}`);
 
     let expiresAt = null;
     if (result.label !== LABELS.KEEP) {
@@ -116,8 +117,11 @@ chrome.downloads.onChanged.addListener(async (delta) => {
 
     // Notify for ambiguous downloads
     if (result.label === LABELS.AMBIGUOUS && settings.notificationsEnabled && !settings.dryRunMode) {
+      console.log(`[KeepTrack] Sending notification for "${finalFilename}"`);
       const updated = await getRecord(delta.id);
       showClassificationNotification(updated);
+    } else {
+      console.log(`[KeepTrack] No notification: label=${result.label}, notifEnabled=${settings.notificationsEnabled}, dryRun=${settings.dryRunMode}`);
     }
 
     await updateBadge();
