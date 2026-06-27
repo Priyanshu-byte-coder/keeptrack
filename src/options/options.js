@@ -1,5 +1,6 @@
-import { getSettings, saveSettings, getAllRecords } from '../storage/db.js';
+import { getSettings, saveSettings, getAllRecords, updateLabel } from '../storage/db.js';
 import { STORAGE_KEYS } from '../shared/constants.js';
+import { formatDate } from '../shared/utils.js';
 
 // ── DOM ──
 
@@ -163,6 +164,97 @@ clearBtn.addEventListener('click', async () => {
   setTimeout(() => { saveStatus.textContent = ''; }, 2000);
 });
 
+// ── Downloads List ──
+
+const downloadsList = document.getElementById('downloads-list');
+const noDownloads = document.getElementById('no-downloads');
+const searchInput = document.getElementById('search-downloads');
+const filterLabel = document.getElementById('filter-label');
+
+let allDownloads = [];
+
+async function loadDownloads() {
+  const records = await getAllRecords();
+  allDownloads = Object.entries(records)
+    .map(([id, r]) => ({ ...r, id: parseInt(id) }))
+    .filter((r) => r.status !== 'cancelled')
+    .sort((a, b) => new Date(b.downloadTime) - new Date(a.downloadTime));
+  renderDownloads();
+}
+
+function renderDownloads() {
+  const query = searchInput.value.trim().toLowerCase();
+  const filter = filterLabel.value;
+
+  let filtered = allDownloads;
+  if (query) {
+    filtered = filtered.filter((r) => r.filename.toLowerCase().includes(query));
+  }
+  if (filter !== 'all') {
+    filtered = filtered.filter((r) => r.label === filter);
+  }
+
+  downloadsList.innerHTML = '';
+  if (filtered.length === 0) {
+    noDownloads.classList.remove('hidden');
+    noDownloads.textContent = allDownloads.length === 0 ? 'No downloads tracked yet.' : 'No matches found.';
+    return;
+  }
+  noDownloads.classList.add('hidden');
+
+  for (const record of filtered) {
+    downloadsList.appendChild(createDownloadItem(record));
+  }
+}
+
+function createDownloadItem(record) {
+  const item = document.createElement('div');
+  item.className = 'download-item';
+
+  const domain = record.url ? extractDomainDisplay(record.url) : 'unknown';
+  const date = record.downloadTime ? formatDate(record.downloadTime) : '';
+
+  item.innerHTML = `
+    <div class="download-info">
+      <div class="download-name" title="${escapeHtml(record.filename)}">${escapeHtml(record.filename)}</div>
+      <div class="download-meta">${escapeHtml(domain)} · ${date}</div>
+    </div>
+    <div class="label-toggle">
+      <button data-label="keep" class="${record.label === 'keep' ? 'active-keep' : ''}">Keep</button>
+      <button data-label="temporary" class="${record.label === 'temporary' ? 'active-temporary' : ''}">Temp</button>
+      <button data-label="ambiguous" class="${record.label === 'ambiguous' ? 'active-ambiguous' : ''}">Ambiguous</button>
+    </div>
+  `;
+
+  item.querySelector('.label-toggle').addEventListener('click', async (e) => {
+    const btn = e.target.closest('[data-label]');
+    if (!btn) return;
+    const newLabel = btn.dataset.label;
+    if (newLabel === record.label) return;
+
+    await updateLabel(record.id, newLabel);
+    record.label = newLabel;
+
+    // Update toggle buttons
+    item.querySelectorAll('.label-toggle button').forEach((b) => {
+      b.className = b.dataset.label === newLabel ? `active-${newLabel}` : '';
+    });
+  });
+
+  return item;
+}
+
+function extractDomainDisplay(url) {
+  try {
+    return new URL(url).hostname.replace('www.', '');
+  } catch {
+    return 'unknown';
+  }
+}
+
+searchInput.addEventListener('input', renderDownloads);
+filterLabel.addEventListener('change', renderDownloads);
+
 // ── Helpers ──
 
 function escapeHtml(str) {
@@ -174,3 +266,4 @@ function escapeHtml(str) {
 // ── Init ──
 
 load();
+loadDownloads();
