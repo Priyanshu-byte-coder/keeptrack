@@ -10,6 +10,7 @@
 
 <p align="center">
   <img src="https://komarev.com/ghpvc/?username=Priyanshu-byte-coder&repo=keeptrack&label=views&color=43A047&style=flat-square" alt="Views">
+  <img src="https://img.shields.io/github/downloads/Priyanshu-byte-coder/keeptrack/total?color=E53935&style=flat-square&label=downloads" alt="Downloads">
   <img src="https://img.shields.io/github/v/release/Priyanshu-byte-coder/keeptrack?color=43A047&style=flat-square" alt="Release">
   <img src="https://img.shields.io/github/license/Priyanshu-byte-coder/keeptrack?style=flat-square" alt="License">
   <img src="https://img.shields.io/badge/chrome-extension-yellow?style=flat-square&logo=googlechrome&logoColor=white" alt="Chrome Extension">
