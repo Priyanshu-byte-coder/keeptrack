@@ -1,0 +1,230 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  background: #1a1a2e;
+  color: #e0e0e0;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 24px;
+}
+
+/* ── Header ── */
+
+header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+h1 {
+  font-size: 28px;
+  font-weight: 300;
+  color: #eee;
+}
+
+.brand {
+  font-weight: 700;
+  color: #e94560;
+  letter-spacing: 1px;
+}
+
+.subtitle {
+  color: #8899aa;
+  margin-top: 8px;
+  line-height: 1.5;
+}
+
+.subtitle strong {
+  color: #f0c040;
+}
+
+/* ── Dry Run Badge ── */
+
+.dry-run-badge {
+  text-align: center;
+  background: #2c3e6d;
+  color: #f0c040;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-block;
+  margin: 0 auto 24px;
+  width: fit-content;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ── Scanning ── */
+
+.scanning {
+  text-align: center;
+  padding: 40px;
+  color: #8899aa;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #333;
+  border-top: 2px solid #e94560;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Results ── */
+
+.hidden { display: none; }
+
+.summary {
+  text-align: center;
+  font-size: 15px;
+  margin-bottom: 20px;
+  color: #aab;
+}
+
+.summary .count {
+  font-weight: 700;
+  margin: 0 4px;
+}
+
+.summary .keep { color: #2ecc71; }
+.summary .temporary { color: #e67e22; }
+.summary .ambiguous { color: #f1c40f; }
+
+/* ── Table ── */
+
+.table-wrapper {
+  max-height: 400px;
+  overflow-y: auto;
+  border: 1px solid #0f3460;
+  border-radius: 8px;
+  margin-bottom: 24px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+thead {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+th {
+  background: #16213e;
+  color: #8899aa;
+  font-weight: 600;
+  text-align: left;
+  padding: 10px 12px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid #0f3460;
+}
+
+td {
+  padding: 8px 12px;
+  border-bottom: 1px solid #0f3460;
+  vertical-align: top;
+}
+
+tr:hover td {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.filename-cell {
+  max-width: 250px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #ddd;
+}
+
+.label-cell {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.label-keep { color: #2ecc71; }
+.label-temporary { color: #e67e22; }
+.label-ambiguous { color: #f1c40f; }
+
+.confidence-cell {
+  color: #8899aa;
+}
+
+.reasons-cell {
+  font-size: 11px;
+  color: #667;
+  max-width: 200px;
+}
+
+/* ── Actions ── */
+
+.actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.btn {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.btn:hover { opacity: 0.85; }
+
+.btn-primary {
+  background: #e94560;
+  color: #fff;
+}
+
+.btn-secondary {
+  background: #2c3e6d;
+  color: #aab;
+}
+
+/* ── Trust Note ── */
+
+.trust-note {
+  text-align: center;
+  font-size: 12px;
+  color: #556;
+  line-height: 1.5;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* ── Scrollbar ── */
+
+.table-wrapper::-webkit-scrollbar { width: 6px; }
+.table-wrapper::-webkit-scrollbar-track { background: #1a1a2e; }
+.table-wrapper::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }

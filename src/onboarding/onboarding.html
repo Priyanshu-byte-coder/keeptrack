@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="onboarding.css">
+  <title>Welcome to KeepTrack</title>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Welcome to <span class="brand">KeepTrack</span></h1>
+      <p class="subtitle">
+        Let's see what KeepTrack would do with your existing downloads.<br>
+        <strong>Nothing will be moved or deleted.</strong>
+      </p>
+    </header>
+
+    <div class="dry-run-badge">DRY RUN — read-only preview</div>
+
+    <div id="scanning" class="scanning">
+      <div class="spinner"></div>
+      <span>Scanning download history...</span>
+    </div>
+
+    <div id="results" class="hidden">
+      <div id="summary" class="summary"></div>
+
+      <div class="table-wrapper">
+        <table id="results-table">
+          <thead>
+            <tr>
+              <th>File</th>
+              <th>Classification</th>
+              <th>Confidence</th>
+              <th>Reasons</th>
+            </tr>
+          </thead>
+          <tbody id="results-body"></tbody>
+        </table>
+      </div>
+
+      <div class="actions">
+        <button id="activate-btn" class="btn btn-primary">Looks Good — Activate KeepTrack</button>
+        <button id="settings-btn" class="btn btn-secondary">Adjust Settings First</button>
+      </div>
+
+      <div class="trust-note">
+        KeepTrack never deletes files automatically. Temporary files are flagged after
+        your chosen expiry window with a generous undo period before any suggestion to delete.
+        You always have the final say.
+      </div>
+    </div>
+  </div>
+
+  <script src="onboarding.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="options.css">
+  <title>KeepTrack Settings</title>
+</head>
+<body>
+  <div class="container">
+    <h1><span class="brand">KeepTrack</span> Settings</h1>
+
+    <!-- Timing -->
+    <section>
+      <h2>Timing</h2>
+      <div class="field">
+        <label for="expiry-days">Expiry Window</label>
+        <div class="input-row">
+          <select id="expiry-days">
+            <option value="7">7 days</option>
+            <option value="14">14 days</option>
+            <option value="21">21 days</option>
+            <option value="30">30 days</option>
+          </select>
+          <span class="hint">before temporary files are flagged</span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="archive-days">Archive Grace Period</label>
+        <div class="input-row">
+          <select id="archive-days">
+            <option value="3">3 days</option>
+            <option value="7">7 days</option>
+            <option value="14">14 days</option>
+          </select>
+          <span class="hint">in archive before suggesting deletion</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notifications -->
+    <section>
+      <h2>Notifications</h2>
+      <div class="field checkbox-field">
+        <label>
+          <input type="checkbox" id="notifications-enabled">
+          Show notification for ambiguous downloads
+        </label>
+      </div>
+      <div class="field checkbox-field">
+        <label>
+          <input type="checkbox" id="weekly-reminder">
+          Weekly triage reminder
+        </label>
+        <select id="weekly-day" class="inline-select">
+          <option value="0">Sunday</option>
+          <option value="1">Monday</option>
+          <option value="2">Tuesday</option>
+          <option value="3">Wednesday</option>
+          <option value="4">Thursday</option>
+          <option value="5">Friday</option>
+          <option value="6">Saturday</option>
+        </select>
+      </div>
+    </section>
+
+    <!-- Custom Rules -->
+    <section>
+      <h2>Custom Rules</h2>
+
+      <div class="rule-group">
+        <h3>Always Keep (domains)</h3>
+        <div id="keep-domains-list" class="tag-list"></div>
+        <div class="add-row">
+          <input type="text" id="keep-domain-input" placeholder="e.g. mybank.com">
+          <button class="btn btn-small" id="add-keep-domain">+ Add</button>
+        </div>
+      </div>
+
+      <div class="rule-group">
+        <h3>Always Keep (extensions)</h3>
+        <div id="keep-extensions-list" class="tag-list"></div>
+        <div class="add-row">
+          <input type="text" id="keep-ext-input" placeholder="e.g. .key">
+          <button class="btn btn-small" id="add-keep-ext">+ Add</button>
+        </div>
+      </div>
+
+      <div class="rule-group">
+        <h3>Always Temporary (domains)</h3>
+        <div id="temp-domains-list" class="tag-list"></div>
+        <div class="add-row">
+          <input type="text" id="temp-domain-input" placeholder="e.g. junksite.com">
+          <button class="btn btn-small" id="add-temp-domain">+ Add</button>
+        </div>
+      </div>
+
+      <div class="rule-group">
+        <h3>Always Temporary (extensions)</h3>
+        <div id="temp-extensions-list" class="tag-list"></div>
+        <div class="add-row">
+          <input type="text" id="temp-ext-input" placeholder="e.g. .tmp">
+          <button class="btn btn-small" id="add-temp-ext">+ Add</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Data -->
+    <section>
+      <h2>Data</h2>
+      <div class="button-row">
+        <button class="btn btn-secondary" id="rerun-btn">Re-run Dry Run</button>
+        <button class="btn btn-secondary" id="export-btn">Export Data</button>
+        <button class="btn btn-danger" id="clear-btn">Clear All Data</button>
+      </div>
+    </section>
+
+    <!-- Save -->
+    <div class="save-row">
+      <button class="btn btn-primary" id="save-btn">Save Settings</button>
+      <span id="save-status" class="save-status"></span>
+    </div>
+  </div>
+
+  <script src="options.js" type="module"></script>
+</body>
+</html>

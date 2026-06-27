@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>KeepTrack Engine Tests</title>
+  <style>
+    body { font-family: monospace; margin: 20px; background: #1a1a2e; color: #eee; }
+    .pass { color: #2ecc71; }
+    .fail { color: #e74c3c; font-weight: bold; }
+    .group { color: #3498db; font-size: 16px; margin-top: 16px; }
+    .summary { margin-top: 20px; font-size: 18px; padding: 10px; border-top: 1px solid #444; }
+    pre { margin: 2px 0 2px 20px; font-size: 12px; color: #aaa; }
+  </style>
+</head>
+<body>
+  <h2>KeepTrack Heuristic Engine — Test Suite</h2>
+  <div id="results"></div>
+  <script type="module">
+    import { classify } from '../src/rules/engine.js';
+
+    const results = document.getElementById('results');
+    let passed = 0;
+    let failed = 0;
+
+    function group(name) {
+      const el = document.createElement('div');
+      el.className = 'group';
+      el.textContent = `▸ ${name}`;
+      results.appendChild(el);
+    }
+
+    function assert(testName, actual, expected, detail = '') {
+      const el = document.createElement('div');
+      if (actual === expected) {
+        el.className = 'pass';
+        el.textContent = `  ✓ ${testName}`;
+        passed++;
+      } else {
+        el.className = 'fail';
+        el.textContent = `  ✗ ${testName} — expected "${expected}", got "${actual}"`;
+        failed++;
+      }
+      results.appendChild(el);
+      if (detail) {
+        const pre = document.createElement('pre');
+        pre.textContent = detail;
+        results.appendChild(pre);
+      }
+    }
+
+    function test(name, download, expectedLabel, settings = {}) {
+      const result = classify(download, settings);
+      const detail = `score-derived confidence: ${result.confidence.toFixed(2)} | reasons: ${result.reasons.join(', ')}`;
+      assert(name, result.label, expectedLabel, detail);
+    }
+
+    // ── Extension Rules ──
+    group('Extension Rules');
+    test('.exe → temporary', { filename: 'app.exe', extension: '.exe', url: '', referrer: '' }, 'temporary');
+    test('.msi → temporary', { filename: 'tool.msi', extension: '.msi', url: '', referrer: '' }, 'temporary');
+    test('.dmg → temporary', { filename: 'app.dmg', extension: '.dmg', url: '', referrer: '' }, 'temporary');
+    test('.torrent → temporary', { filename: 'file.torrent', extension: '.torrent', url: '', referrer: '' }, 'temporary');
+    test('.iso → temporary', { filename: 'os.iso', extension: '.iso', url: '', referrer: '' }, 'temporary');
+    test('.pdf alone → ambiguous (weak signal)', { filename: 'random.pdf', extension: '.pdf', url: '', referrer: '' }, 'ambiguous');
+    test('.docx → ambiguous (below threshold)', { filename: 'doc.docx', extension: '.docx', url: '', referrer: '' }, 'ambiguous');
+    test('.pem → ambiguous (just below keep threshold)', { filename: 'server.pem', extension: '.pem', url: '', referrer: '' }, 'ambiguous');
+    test('unknown ext → ambiguous', { filename: 'file.xyz', extension: '.xyz', url: '', referrer: '' }, 'ambiguous');
+
+    // ── Keyword Rules ──
+    group('Keyword Rules');
+    test('invoice.pdf → keep', { filename: 'invoice-march-2026.pdf', extension: '.pdf', url: '', referrer: '' }, 'keep');
+    test('receipt.pdf → keep', { filename: 'receipt-order-123.pdf', extension: '.pdf', url: '', referrer: '' }, 'keep');
+    test('certificate.pdf → keep', { filename: 'certificate-completion.pdf', extension: '.pdf', url: '', referrer: '' }, 'keep');
+    test('tax-return.pdf → keep', { filename: 'tax-return-2025.pdf', extension: '.pdf', url: '', referrer: '' }, 'keep');
+    test('resume.pdf → keep', { filename: 'resume-priyanshu.pdf', extension: '.pdf', url: '', referrer: '' }, 'keep');
+    test('contract.pdf → keep', { filename: 'contract-freelance.pdf', extension: '.pdf', url: '', referrer: '' }, 'keep');
+    test('setup.exe → strong temporary', { filename: 'setup-v2.exe', extension: '.exe', url: '', referrer: '' }, 'temporary');
+    test('installer.msi → strong temporary', { filename: 'installer-app.msi', extension: '.msi', url: '', referrer: '' }, 'temporary');
+
+    // ── Domain Rules ──
+    group('Domain Rules');
+    test('from chase.com → keep boost', { filename: 'doc.pdf', extension: '.pdf', url: 'https://www.chase.com/download/stmt.pdf', referrer: '' }, 'keep');
+    test('from .gov → keep boost', { filename: 'form.pdf', extension: '.pdf', url: 'https://irs.gov/forms/w2.pdf', referrer: '' }, 'keep');
+    test('from softonic → temporary', { filename: 'app.zip', extension: '.zip', url: 'https://softonic.com/download/app', referrer: '' }, 'temporary');
+    test('from gmail (referrer) → keep boost', { filename: 'attachment.pdf', extension: '.pdf', url: 'https://cdn.google.com/file', referrer: 'https://mail.google.com/mail/u/0/' }, 'keep');
+    test('from google drive → keep boost', { filename: 'shared-doc.pdf', extension: '.pdf', url: 'https://drive.google.com/uc?export=download', referrer: '' }, 'keep');
+
+    // ── Combined Scoring ──
+    group('Combined Scoring');
+    test('setup.exe from softonic → very strong temporary',
+      { filename: 'setup.exe', extension: '.exe', url: 'https://softonic.com/dl', referrer: '' }, 'temporary');
+    test('invoice.pdf from bank → very strong keep',
+      { filename: 'invoice-june.pdf', extension: '.pdf', url: 'https://mybank.com/statements', referrer: '' }, 'keep');
+    test('random.pdf from unknown → ambiguous',
+      { filename: 'document.pdf', extension: '.pdf', url: 'https://randomsite.com/file', referrer: '' }, 'ambiguous');
+    test('screenshot.png → ambiguous (weak signals cancel)',
+      { filename: 'screenshot-2026.png', extension: '.png', url: '', referrer: '' }, 'ambiguous');
+
+    // ── User Overrides ──
+    group('User Overrides');
+    test('alwaysKeepDomains override',
+      { filename: 'anything.exe', extension: '.exe', url: 'https://mycompany.com/tool.exe', referrer: '' },
+      'keep',
+      { alwaysKeepDomains: ['mycompany.com'] });
+    test('alwaysTemporaryDomains override',
+      { filename: 'invoice.pdf', extension: '.pdf', url: 'https://junksite.com/invoice.pdf', referrer: '' },
+      'temporary',
+      { alwaysTemporaryDomains: ['junksite.com'] });
+    test('alwaysKeepExtensions override',
+      { filename: 'data.csv', extension: '.csv', url: 'https://softonic.com/data.csv', referrer: '' },
+      'keep',
+      { alwaysKeepExtensions: ['.csv'] });
+    test('alwaysTemporaryExtensions override',
+      { filename: 'report.pdf', extension: '.pdf', url: 'https://bank.com/report.pdf', referrer: '' },
+      'temporary',
+      { alwaysTemporaryExtensions: ['.pdf'] });
+
+    // ── Edge Cases ──
+    group('Edge Cases');
+    test('empty filename → ambiguous',
+      { filename: '', extension: '', url: '', referrer: '' }, 'ambiguous');
+    test('no extension → ambiguous',
+      { filename: 'README', extension: '', url: '', referrer: '' }, 'ambiguous');
+    test('multiple keyword matches stack',
+      { filename: 'signed-contract-nda.pdf', extension: '.pdf', url: '', referrer: '' }, 'keep');
+
+    // ── Summary ──
+    const summary = document.createElement('div');
+    summary.className = 'summary';
+    const allPassed = failed === 0;
+    summary.innerHTML = `<span class="${allPassed ? 'pass' : 'fail'}">${passed} passed, ${failed} failed — ${passed + failed} total</span>`;
+    results.appendChild(summary);
+  </script>
+</body>
+</html>
