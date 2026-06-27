@@ -167,6 +167,12 @@ h2 {
   line-height: 1.4;
 }
 
+.file-card .file-gone {
+  font-size: 11px;
+  color: #E53935;
+  font-weight: 400;
+}
+
 .file-card .actions {
   display: flex;
   gap: 8px;

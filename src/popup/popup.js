@@ -1,6 +1,6 @@
 import { LABELS, STATUS } from '../shared/constants.js';
 import { formatDate, daysFromNow } from '../shared/utils.js';
-import { getAllRecords, updateLabel, getSettings } from '../storage/db.js';
+import { getAllRecords, updateLabel, deleteRecord, getSettings } from '../storage/db.js';
 
 // ── DOM Elements ──
 
@@ -42,6 +42,14 @@ async function render() {
   keptCount.textContent = `${kept.length} kept`;
   tempCount.textContent = `${temp.length} temporary`;
 
+  // Check file existence for expiring files
+  for (const record of expiring) {
+    const [item] = await new Promise((resolve) =>
+      chrome.downloads.search({ id: record.id }, (results) => resolve(results || []))
+    );
+    record._fileGone = !item || !item.exists;
+  }
+
   // Render expiring files
   expiringList.innerHTML = '';
   if (expiring.length === 0) {
@@ -74,12 +82,15 @@ function createFileCard(record) {
   const domain = record.url ? extractDomainDisplay(record.url) : 'unknown source';
 
   card.innerHTML = `
-    <div class="filename">${escapeHtml(record.filename)}</div>
+    <div class="filename">${escapeHtml(record.filename)}${record._fileGone ? ' <span class="file-gone">(file moved or deleted)</span>' : ''}</div>
     <div class="meta">from: ${escapeHtml(domain)} · ${formatDate(record.downloadTime)} · ${expiryText}</div>
     <div class="actions">
       <button class="btn btn-keep" data-id="${record.id}" data-action="keep">Keep</button>
       <button class="btn btn-expire" data-id="${record.id}" data-action="expire">Let Expire</button>
-      <button class="btn btn-folder" data-id="${record.id}" data-action="show">Show in Folder</button>
+      ${record._fileGone
+        ? '<button class="btn btn-folder" data-id="' + record.id + '" data-action="dismiss">Dismiss</button>'
+        : '<button class="btn btn-folder" data-id="' + record.id + '" data-action="show">Show in Folder</button>'
+      }
     </div>
   `;
 
@@ -114,10 +125,21 @@ async function handleAction(e) {
     await updateLabel(id, LABELS.KEEP);
     await render();
   } else if (action === 'expire') {
-    // Confirm temporary — already set, just refresh
     await render();
   } else if (action === 'show') {
-    chrome.downloads.show(id);
+    // Check if file still exists before trying to show
+    const [item] = await new Promise((resolve) =>
+      chrome.downloads.search({ id }, (results) => resolve(results || []))
+    );
+    if (item && item.exists) {
+      chrome.downloads.show(id);
+    } else {
+      btn.textContent = 'File not found';
+      btn.disabled = true;
+    }
+  } else if (action === 'dismiss') {
+    await deleteRecord(id);
+    await render();
   }
 }
 

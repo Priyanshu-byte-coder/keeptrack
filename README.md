@@ -24,8 +24,8 @@
 <tr>
 <td align="center">
 <br>
-<a href="https://github.com/Priyanshu-byte-coder/keeptrack/releases/download/v1.0.0/keeptrack-v1.0.0.zip">
-<img src="https://img.shields.io/badge/%E2%AC%87%EF%B8%8F_Download_KeepTrack-v1.0.0-E53935?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Download" height="45">
+<a href="https://github.com/Priyanshu-byte-coder/keeptrack/releases/download/v1.1.0/keeptrack-v1.1.0.zip">
+<img src="https://img.shields.io/badge/%E2%AC%87%EF%B8%8F_Download_KeepTrack-v1.1.0-E53935?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Download" height="45">
 </a>
 <br>
 <br>
@@ -67,7 +67,7 @@ KeepTrack silently classifies every download as **keep**, **temporary**, or **am
 
 ### Option 1: Direct Download (Recommended)
 
-<a href="https://github.com/Priyanshu-byte-coder/keeptrack/releases/download/v1.0.0/keeptrack-v1.0.0.zip">
+<a href="https://github.com/Priyanshu-byte-coder/keeptrack/releases/download/v1.1.0/keeptrack-v1.1.0.zip">
   <img src="https://img.shields.io/badge/%E2%AC%87%EF%B8%8F_Download_ZIP-E53935?style=for-the-badge" alt="Download ZIP" height="30">
 </a>
 

@@ -94,8 +94,6 @@ chrome.downloads.onChanged.addListener(async (delta) => {
     };
 
     const result = classify(download, settings);
-    console.log(`[KeepTrack] Classified "${finalFilename}" as ${result.label} (${Math.round(result.confidence * 100)}%) | reasons: ${result.reasons.join(', ')} | dryRun: ${settings.dryRunMode} | notif: ${settings.notificationsEnabled}`);
-
     let expiresAt = null;
     if (result.label !== LABELS.KEEP) {
       const expiry = new Date();
@@ -117,11 +115,8 @@ chrome.downloads.onChanged.addListener(async (delta) => {
 
     // Notify for ambiguous downloads
     if (result.label === LABELS.AMBIGUOUS && settings.notificationsEnabled && !settings.dryRunMode) {
-      console.log(`[KeepTrack] Sending notification for "${finalFilename}"`);
       const updated = await getRecord(delta.id);
       showClassificationNotification(updated);
-    } else {
-      console.log(`[KeepTrack] No notification: label=${result.label}, notifEnabled=${settings.notificationsEnabled}, dryRun=${settings.dryRunMode}`);
     }
 
     await updateBadge();
@@ -148,7 +143,7 @@ function showClassificationNotification(record) {
   }, (notificationId) => {
     // If notification creation fails (buttons not supported), retry without buttons
     if (chrome.runtime.lastError) {
-      console.log('Notification with buttons failed, retrying without:', chrome.runtime.lastError.message);
+      // Buttons not supported (e.g. Windows) — retry without
       chrome.notifications.create(`keeptrack-${record.id}`, {
         type: 'basic',
         iconUrl: chrome.runtime.getURL('icons/icon-128.png'),
@@ -208,4 +203,4 @@ async function updateBadge() {
   chrome.action.setBadgeBackgroundColor({ color: count > 0 ? '#e74c3c' : '#888' });
 }
 
-console.log('KeepTrack service worker loaded.');
+// Service worker ready

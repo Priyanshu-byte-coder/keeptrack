@@ -135,13 +135,12 @@ exportBtn.addEventListener('click', async () => {
   URL.revokeObjectURL(url);
 });
 
-// ── Debug ──
+// ── Clean Up Now ──
 
 const forceExpireBtn = document.getElementById('force-expire-btn');
 forceExpireBtn.addEventListener('click', async () => {
   const records = await getAllRecords();
   const now = new Date();
-  // Set expiry to 1 minute ago for all non-keep records
   const pastExpiry = new Date(now.getTime() - 60000).toISOString();
   let count = 0;
   for (const [id, r] of Object.entries(records)) {
@@ -151,7 +150,7 @@ forceExpireBtn.addEventListener('click', async () => {
       count++;
     }
   }
-  saveStatus.textContent = `Forced ${count} files to expire.`;
+  saveStatus.textContent = `${count} file${count === 1 ? '' : 's'} ready to review in popup.`;
   setTimeout(() => { saveStatus.textContent = ''; }, 3000);
 });
 
