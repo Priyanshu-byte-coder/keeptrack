@@ -17,11 +17,27 @@
   <img src="https://img.shields.io/badge/telemetry-zero-brightgreen?style=flat-square" alt="Zero Telemetry">
 </p>
 
-<p align="center">
-  <a href="https://github.com/Priyanshu-byte-coder/keeptrack/releases/latest/download/keeptrack-v1.0.0.zip">
-    <img src="https://img.shields.io/badge/Download_KeepTrack-v1.0.0-E53935?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Download" height="40">
-  </a>
-</p>
+<br>
+
+<div align="center">
+<table>
+<tr>
+<td align="center">
+<br>
+<a href="https://github.com/Priyanshu-byte-coder/keeptrack/releases/download/v1.0.0/keeptrack-v1.0.0.zip">
+<img src="https://img.shields.io/badge/%E2%AC%87%EF%B8%8F_Download_KeepTrack-v1.0.0-E53935?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Download" height="45">
+</a>
+<br>
+<br>
+<sub><b>3 steps:</b> Download → Unzip → Load in Chrome. That's it.</sub>
+<br>
+<br>
+</td>
+</tr>
+</table>
+</div>
+
+<br>
 
 ---
 
@@ -51,8 +67,12 @@ KeepTrack silently classifies every download as **keep**, **temporary**, or **am
 
 ### Option 1: Direct Download (Recommended)
 
-1. **[Download keeptrack-v1.0.0.zip](https://github.com/Priyanshu-byte-coder/keeptrack/releases/latest/download/keeptrack-v1.0.0.zip)**
-2. Unzip to any folder
+<a href="https://github.com/Priyanshu-byte-coder/keeptrack/releases/download/v1.0.0/keeptrack-v1.0.0.zip">
+  <img src="https://img.shields.io/badge/%E2%AC%87%EF%B8%8F_Download_ZIP-E53935?style=for-the-badge" alt="Download ZIP" height="30">
+</a>
+
+1. **Download** the zip from the button above
+2. **Unzip** to any folder
 3. Open `chrome://extensions` → enable **Developer Mode**
 4. Click **Load unpacked** → select the unzipped folder
 5. Done!
