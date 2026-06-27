@@ -15,6 +15,8 @@ const recentToggle = document.getElementById('recent-toggle');
 const dryRunBanner = document.getElementById('dry-run-banner');
 const activateLink = document.getElementById('activate-link');
 const viewAllLink = document.getElementById('view-all');
+const deleteAllBtn = document.getElementById('delete-all-btn');
+const deleteAllRow = document.getElementById('delete-all-row');
 
 // ── Render ──
 
@@ -59,6 +61,15 @@ async function render() {
     for (const record of expiring.slice(0, 20)) {
       expiringList.appendChild(createFileCard(record));
     }
+    // Show delete all button if there are expired files
+    const deletable = expiring.filter((r) => !r._fileGone);
+    if (deletable.length > 0) {
+      deleteAllRow.classList.remove('hidden');
+      deleteAllBtn.textContent = `Delete ${deletable.length} Expired File${deletable.length === 1 ? '' : 's'}`;
+      deleteAllBtn.dataset.ids = JSON.stringify(deletable.map((r) => r.id));
+    } else {
+      deleteAllRow.classList.add('hidden');
+    }
   }
 
   // Render recent decisions (last 10, sorted by download time)
@@ -90,6 +101,10 @@ function createFileCard(record) {
       ${record._fileGone
         ? '<button class="btn btn-folder" data-id="' + record.id + '" data-action="dismiss">Dismiss</button>'
         : '<button class="btn btn-folder" data-id="' + record.id + '" data-action="show">Show in Folder</button>'
+      }
+      ${!record._fileGone
+        ? '<button class="btn btn-expire" data-id="' + record.id + '" data-action="delete" style="color:#E53935;border-color:#FFCDD2;">Delete</button>'
+        : ''
       }
     </div>
   `;
@@ -137,6 +152,18 @@ async function handleAction(e) {
       btn.textContent = 'File not found';
       btn.disabled = true;
     }
+  } else if (action === 'delete') {
+    try {
+      await new Promise((resolve, reject) =>
+        chrome.downloads.removeFile(id, () =>
+          chrome.runtime.lastError ? reject(chrome.runtime.lastError) : resolve()
+        )
+      );
+    } catch {
+      // File already gone — that's fine
+    }
+    await deleteRecord(id);
+    await render();
   } else if (action === 'dismiss') {
     await deleteRecord(id);
     await render();
@@ -161,6 +188,33 @@ activateLink?.addEventListener('click', async (e) => {
   const { markFirstRunComplete } = await import('../storage/db.js');
   await markFirstRunComplete();
   dryRunBanner.classList.add('hidden');
+});
+
+deleteAllBtn.addEventListener('click', async () => {
+  const ids = JSON.parse(deleteAllBtn.dataset.ids || '[]');
+  if (ids.length === 0) return;
+  if (!confirm(`Permanently delete ${ids.length} file${ids.length === 1 ? '' : 's'} from disk?`)) return;
+
+  deleteAllBtn.disabled = true;
+  deleteAllBtn.textContent = 'Deleting...';
+
+  let deleted = 0;
+  for (const id of ids) {
+    try {
+      await new Promise((resolve, reject) =>
+        chrome.downloads.removeFile(id, () =>
+          chrome.runtime.lastError ? reject(chrome.runtime.lastError) : resolve()
+        )
+      );
+      deleted++;
+    } catch {
+      // File already gone
+    }
+    await deleteRecord(id);
+  }
+
+  deleteAllBtn.textContent = `${deleted} file${deleted === 1 ? '' : 's'} deleted`;
+  setTimeout(() => render(), 1500);
 });
 
 viewAllLink?.addEventListener('click', (e) => {
