@@ -218,24 +218,32 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 64px;
 }
 
-.hero-logo-wrapper {
-  margin-bottom: 24px;
+.hero-brand-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 4px;
 }
 
-.hero-logo {
-  width: 96px;
-  height: 96px;
-  border-radius: 20px;
-  margin: 0 auto;
-  box-shadow: var(--shadow-md);
-  border: 1px solid var(--border);
-  background-color: #fff;
+.hero-brand-logo {
+  width: 128px;
+  height: 128px;
+  border-radius: 32px;
 }
 
-#hero h1 {
+.hero-brand-text {
   font-size: 72px;
-  margin-bottom: 24px;
+  margin: 0;
+  line-height: 1;
   letter-spacing: -0.03em;
+}
+
+.hero-tagline {
+  font-size: 48px;
+  margin-bottom: 24px;
+  letter-spacing: -0.02em;
+  font-family: var(--font-heading);
 }
 
 .hero-subtitle {
@@ -639,7 +647,9 @@ footer {
 
 /* ── Responsive ── */
 @media (max-width: 992px) {
-  #hero h1 { font-size: 56px; }
+  .hero-brand-text { font-size: 56px; }
+  .hero-brand-logo { width: 56px; height: 56px; }
+  .hero-tagline { font-size: 40px; }
   
   .product-row, .product-row.reverse {
     flex-direction: column;
@@ -655,7 +665,9 @@ footer {
 }
 
 @media (max-width: 768px) {
-  #hero h1 { font-size: 40px; }
+  .hero-brand-text { font-size: 40px; }
+  .hero-brand-logo { width: 40px; height: 40px; border-radius: 12px; }
+  .hero-tagline { font-size: 32px; }
   .hero-screenshot { transform: none; }
   
   .nav-toggle { display: block; }
