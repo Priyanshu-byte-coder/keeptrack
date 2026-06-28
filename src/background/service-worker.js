@@ -127,13 +127,22 @@ chrome.downloads.onChanged.addListener(async (delta) => {
 
 // ── Notifications ───────────────────────────────────────────────────
 
+function getNotificationIcon() {
+  try {
+    return chrome.runtime.getURL('icons/icon-128.png');
+  } catch {
+    return 'icons/icon-128.png';
+  }
+}
+
 function showClassificationNotification(record) {
   const confidencePercent = Math.round(record.confidence * 100);
+  const iconUrl = getNotificationIcon();
 
-  // Chrome on Windows may not support buttons — use requireInteraction instead
+  // Try with buttons first (not supported on Windows)
   chrome.notifications.create(`keeptrack-${record.id}`, {
     type: 'basic',
-    iconUrl: chrome.runtime.getURL('icons/icon-128.png'),
+    iconUrl,
     title: 'KeepTrack: New Download',
     message: `"${record.filename}" — ${record.label} (${confidencePercent}% sure). ${record.reasons.slice(0, 2).join(', ')}`,
     buttons: [
@@ -142,17 +151,16 @@ function showClassificationNotification(record) {
     ],
     priority: 2,
     requireInteraction: true,
-  }, (notificationId) => {
-    // If notification creation fails (buttons not supported), retry without buttons
+  }, () => {
     if (chrome.runtime.lastError) {
-      // Buttons not supported (e.g. Windows) — retry without
+      // Retry without buttons (Windows fallback)
       chrome.notifications.create(`keeptrack-${record.id}`, {
         type: 'basic',
-        iconUrl: chrome.runtime.getURL('icons/icon-128.png'),
+        iconUrl,
         title: `KeepTrack: "${record.filename}"`,
         message: `Classified as ${record.label} (${confidencePercent}% sure). Open KeepTrack popup to change.`,
         priority: 2,
-      });
+      }, () => void chrome.runtime.lastError);
     }
   });
 }
@@ -190,10 +198,10 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
   if (expiringCount > 0) {
     chrome.notifications.create('keeptrack-weekly', {
       type: 'basic',
-      iconUrl: chrome.runtime.getURL('icons/icon-128.png'),
+      iconUrl: getNotificationIcon(),
       title: 'KeepTrack: Weekly Review',
       message: `${expiringCount} file${expiringCount === 1 ? '' : 's'} expiring soon. Click the Triage icon to review.`,
-    });
+    }, () => void chrome.runtime.lastError);
   }
 });
 

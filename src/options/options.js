@@ -154,13 +154,14 @@ forceExpireBtn.addEventListener('click', async () => {
   setTimeout(() => { saveStatus.textContent = ''; }, 3000);
 
   if (count > 0) {
+    const iconUrl = (() => { try { return chrome.runtime.getURL('icons/icon-128.png'); } catch { return 'icons/icon-128.png'; } })();
     chrome.notifications.create('keeptrack-cleanup', {
       type: 'basic',
-      iconUrl: chrome.runtime.getURL('icons/icon-128.png'),
+      iconUrl,
       title: 'KeepTrack: Clean Up Ready',
       message: `${count} file${count === 1 ? '' : 's'} ready to review. Click the KeepTrack icon in your toolbar.`,
       priority: 2,
-    });
+    }, () => void chrome.runtime.lastError);
   }
 });
 
