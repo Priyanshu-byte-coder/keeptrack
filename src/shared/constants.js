@@ -33,3 +33,7 @@ export const DEFAULTS = {
 export const ALARM_NAMES = {
   WEEKLY_TRIAGE: 'keeptrack-weekly',
 };
+
+export const INTERVALS = {
+  WEEKLY_MINUTES: 10080, // 7 days in minutes
+};

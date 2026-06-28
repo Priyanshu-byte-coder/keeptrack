@@ -11,6 +11,10 @@
 - No build step, no bundler
 - 2-space indentation
 - `const` by default, descriptive names
+- Import constants from `src/shared/constants.js` — no magic numbers
+
+## Running Tests
+Open `tests/engine.test.html` directly in Chrome. The test suite runs the classification engine against a set of known inputs and reports pass/fail in the browser.
 
 ## Adding Heuristic Rules
 Rules live in `src/rules/`. To add a new rule:

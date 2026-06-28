@@ -1,5 +1,7 @@
 # Changelog
 
+All notable changes to KeepTrack are documented here. Format based on [Keep a Changelog](https://keepachangelog.com/).
+
 ## [1.2.0] - 2026-06-27
 ### Added
 - **Delete expired files** — delete individual files or bulk-delete all expired files from the popup using `chrome.downloads.removeFile()`
@@ -33,3 +35,7 @@
 - First-run dry-run onboarding
 - Options page with custom rules and settings
 - Data export (JSON)
+
+[1.2.0]: https://github.com/Priyanshu-byte-coder/keeptrack/releases/tag/v1.2.0
+[1.1.0]: https://github.com/Priyanshu-byte-coder/keeptrack/releases/tag/v1.1.0
+[1.0.0]: https://github.com/Priyanshu-byte-coder/keeptrack/releases/tag/v1.0.0

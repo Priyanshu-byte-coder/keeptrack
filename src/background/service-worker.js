@@ -1,4 +1,4 @@
-import { LABELS, DEFAULTS, ALARM_NAMES, STORAGE_KEYS } from '../shared/constants.js';
+import { LABELS, DEFAULTS, ALARM_NAMES, STORAGE_KEYS, INTERVALS } from '../shared/constants.js';
 import { extractExtension, extractFilename } from '../shared/utils.js';
 import { createRecord } from '../storage/schema.js';
 import { saveRecord, getRecord, updateRecord, updateLabel, getSettings, saveSettings, refreshStatuses, pruneOldRecords } from '../storage/db.js';
@@ -15,7 +15,7 @@ chrome.runtime.onInstalled.addListener(async (details) => {
     });
 
     chrome.alarms.create(ALARM_NAMES.WEEKLY_TRIAGE, {
-      periodInMinutes: 10080,
+      periodInMinutes: INTERVALS.WEEKLY_MINUTES,
     });
 
     chrome.tabs.create({ url: chrome.runtime.getURL('src/onboarding/onboarding.html') });

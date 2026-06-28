@@ -1,5 +1,4 @@
 import { getSettings, saveSettings, getAllRecords, updateLabel } from '../storage/db.js';
-import { STORAGE_KEYS } from '../shared/constants.js';
 import { formatDate } from '../shared/utils.js';
 
 // ── DOM ──

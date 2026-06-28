@@ -59,7 +59,7 @@ export const KEYWORD_RULES = [
   { pattern: /trial/i, score: -25, reason: 'Trial software' },
   { pattern: /demo/i, score: -20, reason: 'Demo file' },
   { pattern: /sample/i, score: -15, reason: 'Sample file' },
-  { pattern: /\btmp\b|temp\b/i, score: -30, reason: 'Temporary file' },
+  { pattern: /\btmp\b|\btemp\b/i, score: -30, reason: 'Temporary file' },
   { pattern: /cache/i, score: -25, reason: 'Cache file' },
 
   // ── Weak temporary ──
