@@ -218,6 +218,20 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 64px;
 }
 
+.hero-logo-wrapper {
+  margin-bottom: 24px;
+}
+
+.hero-logo {
+  width: 96px;
+  height: 96px;
+  border-radius: 20px;
+  margin: 0 auto;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border);
+  background-color: #fff;
+}
+
 #hero h1 {
   font-size: 72px;
   margin-bottom: 24px;
