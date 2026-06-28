@@ -1,5 +1,4 @@
 // ── Dynamic Version Fetch ──
-
 async function updateDownloadLinks() {
   try {
     const res = await fetch('https://api.github.com/repos/Priyanshu-byte-coder/keeptrack/releases/latest');
@@ -7,27 +6,31 @@ async function updateDownloadLinks() {
     const data = await res.json();
     const version = data.tag_name;
     const asset = data.assets.find(a => a.name.endsWith('.zip'));
-    if (!asset) return;
+    
+    if (asset) {
+      document.querySelectorAll('[data-download-link]').forEach(el => {
+        el.href = asset.browser_download_url;
+      });
+    }
 
-    document.querySelectorAll('[data-download-link]').forEach(el => {
-      el.href = asset.browser_download_url;
-    });
     document.querySelectorAll('[data-show-version]').forEach(el => {
-      el.textContent = `Download ${version}`;
+      // Keep the SVG icon inside the button if it exists
+      const svg = el.querySelector('svg');
+      el.innerHTML = '';
+      if(svg) el.appendChild(svg);
+      el.appendChild(document.createTextNode(` Download ${version}`));
     });
 
-    // Update install command version display
-    const versionBadges = document.querySelectorAll('.version-tag');
+    const versionBadges = document.querySelectorAll('.hero-badge');
     versionBadges.forEach(el => {
-      el.textContent = version;
+      el.textContent = `✨ Version ${version} is out`;
     });
   } catch {
-    // Silently use hardcoded fallback
+    console.warn("Failed to fetch latest version from GitHub.");
   }
 }
 
 // ── Mobile Nav ──
-
 function initMobileNav() {
   const toggle = document.querySelector('.nav-toggle');
   const links = document.querySelector('.nav-links');
@@ -38,7 +41,6 @@ function initMobileNav() {
     toggle.setAttribute('aria-expanded', links.classList.contains('open'));
   });
 
-  // Close on link click
   links.querySelectorAll('a').forEach(a => {
     a.addEventListener('click', () => {
       links.classList.remove('open');
@@ -48,18 +50,23 @@ function initMobileNav() {
 }
 
 // ── Copy to Clipboard ──
-
 function initCopyButtons() {
   document.querySelectorAll('.copy-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      const code = btn.closest('.code-block').querySelector('code').textContent;
-      navigator.clipboard.writeText(code).then(() => {
-        const original = btn.textContent;
-        btn.textContent = 'Copied!';
+      const codeBlock = btn.closest('.code-block').querySelector('code');
+      if(!codeBlock) return;
+      
+      navigator.clipboard.writeText(codeBlock.textContent).then(() => {
+        const originalHTML = btn.innerHTML;
+        // Check icon
+        btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
         btn.classList.add('copied');
+        btn.style.borderColor = "#10b981";
+        
         setTimeout(() => {
-          btn.textContent = original;
+          btn.innerHTML = originalHTML;
           btn.classList.remove('copied');
+          btn.style.borderColor = "";
         }, 2000);
       });
     });
@@ -67,24 +74,63 @@ function initCopyButtons() {
 }
 
 // ── Scroll Animations ──
-
 function initScrollAnimations() {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
+        // Handle staggered delays
+        const delay = entry.target.getAttribute('data-delay');
+        if (delay) {
+          entry.target.style.transitionDelay = `${delay}s`;
+        }
+        
         entry.target.classList.add('visible');
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.1 });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
   document.querySelectorAll('.animate-on-scroll').forEach(el => {
     observer.observe(el);
   });
 }
 
-// ── GoatCounter Events ──
+// ── Bento Card Mouse Glow ──
+function initBentoGlow() {
+  const cards = document.querySelectorAll('.bento-hover');
+  
+  document.getElementById('bento-container')?.addEventListener('mousemove', e => {
+    for (const card of cards) {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      card.style.setProperty('--mouse-x', `${x}px`);
+      card.style.setProperty('--mouse-y', `${y}px`);
+    }
+  });
+}
 
+// ── Install Tabs ──
+function initInstallTabs() {
+  const tabs = document.querySelectorAll('.tab-btn');
+  const panes = document.querySelectorAll('.tab-pane');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      // Remove active from all
+      tabs.forEach(t => t.classList.remove('active'));
+      panes.forEach(p => p.classList.remove('active'));
+
+      // Add active to clicked
+      tab.classList.add('active');
+      const targetId = `tab-${tab.getAttribute('data-tab')}`;
+      document.getElementById(targetId).classList.add('active');
+    });
+  });
+}
+
+// ── GoatCounter Events ──
 function initAnalyticsEvents() {
   document.querySelectorAll('[data-goatcounter-click]').forEach(el => {
     el.addEventListener('click', () => {
@@ -99,9 +145,12 @@ function initAnalyticsEvents() {
 }
 
 // ── Init ──
-
-updateDownloadLinks();
-initMobileNav();
-initCopyButtons();
-initScrollAnimations();
-initAnalyticsEvents();
+document.addEventListener('DOMContentLoaded', () => {
+  updateDownloadLinks();
+  initMobileNav();
+  initCopyButtons();
+  initScrollAnimations();
+  initBentoGlow();
+  initInstallTabs();
+  initAnalyticsEvents();
+});
