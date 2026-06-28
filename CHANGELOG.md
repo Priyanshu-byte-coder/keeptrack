@@ -2,6 +2,20 @@
 
 All notable changes to KeepTrack are documented here. Format based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.2.1] - 2026-06-29
+### Fixed
+- **Notification icon error** — fixed "Unable to download all specified images" error on Chrome notifications
+- Added `web_accessible_resources` to manifest for notification icon access
+- Proper error handling on notification fallback (Windows button support)
+
+### Changed
+- Removed unused import in options page
+- Fixed malformed regex in keyword rules (`\btemp\b` word boundary)
+- Extracted magic number to named constant (`INTERVALS.WEEKLY_MINUTES`)
+- Added accessibility label to settings button
+- Improved CONTRIBUTING.md with test instructions
+- Added release links to CHANGELOG.md
+
 ## [1.2.0] - 2026-06-27
 ### Added
 - **Delete expired files** — delete individual files or bulk-delete all expired files from the popup using `chrome.downloads.removeFile()`
@@ -36,6 +50,7 @@ All notable changes to KeepTrack are documented here. Format based on [Keep a Ch
 - Options page with custom rules and settings
 - Data export (JSON)
 
+[1.2.1]: https://github.com/Priyanshu-byte-coder/keeptrack/releases/tag/v1.2.1
 [1.2.0]: https://github.com/Priyanshu-byte-coder/keeptrack/releases/tag/v1.2.0
 [1.1.0]: https://github.com/Priyanshu-byte-coder/keeptrack/releases/tag/v1.1.0
 [1.0.0]: https://github.com/Priyanshu-byte-coder/keeptrack/releases/tag/v1.0.0

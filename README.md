@@ -63,8 +63,8 @@ All controls in your hands — 100% free & open source, 100% local, zero telemet
 
 ### Recommended: Direct Download
 
-<a href="https://github.com/Priyanshu-byte-coder/keeptrack/releases/download/v1.2.0/keeptrack-v1.2.0.zip">
-  <img src="https://img.shields.io/badge/%E2%AC%87%EF%B8%8F_Download_KeepTrack-v1.2.0-E53935?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Download" height="45">
+<a href="https://github.com/Priyanshu-byte-coder/keeptrack/releases/download/v1.2.1/keeptrack-v1.2.1.zip">
+  <img src="https://img.shields.io/badge/%E2%AC%87%EF%B8%8F_Download_KeepTrack-v1.2.1-E53935?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Download" height="45">
 </a>
 
 1. **Download** the ZIP from the button above
