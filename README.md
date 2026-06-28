@@ -19,6 +19,12 @@
 
 <br>
 
+<p align="center">
+  <img src="icons/cover.png" alt="KeepTrack Product Overview" width="800">
+</p>
+
+<br>
+
 <div align="center">
 <table>
 <tr>
@@ -36,12 +42,6 @@
 </tr>
 </table>
 </div>
-
-<br>
-
-<p align="center">
-  <img src="icons/cover.png" alt="KeepTrack Product Overview" width="800">
-</p>
 
 <br>
 
