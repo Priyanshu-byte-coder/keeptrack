@@ -39,6 +39,12 @@
 
 <br>
 
+<p align="center">
+  <img src="icons/cover.png" alt="KeepTrack Product Overview" width="800">
+</p>
+
+<br>
+
 ---
 
 Every file you download makes sense in the moment. Two weeks later, your Downloads folder is 200 files deep and you can't remember which ones matter. **KeepTrack captures that "keep or toss" decision at the exact moment you download — when you actually know the answer.**
