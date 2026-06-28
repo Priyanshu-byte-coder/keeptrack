@@ -289,6 +289,13 @@ h1, h2, h3, h4, h5, h6 {
   display: block;
 }
 
+.hero-screenshot iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  display: block;
+  border: none;
+}
+
 /* ── Stats Bar ── */
 #stats {
   padding: 32px 0;
