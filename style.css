@@ -399,6 +399,24 @@ h1, h2, h3, h4, h5, h6 {
   display: block;
 }
 
+/* ── Demo Video ── */
+.demo-video-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-lg);
+  background: #000;
+}
+
+.demo-video-wrapper video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+}
+
 /* ── Install Section ── */
 .install-card {
   max-width: 800px;
