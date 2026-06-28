@@ -14,17 +14,12 @@ async function updateDownloadLinks() {
     }
 
     document.querySelectorAll('[data-show-version]').forEach(el => {
-      // Keep the SVG icon inside the button if it exists
       const svg = el.querySelector('svg');
       el.innerHTML = '';
       if(svg) el.appendChild(svg);
       el.appendChild(document.createTextNode(` Download ${version}`));
     });
 
-    const versionBadges = document.querySelectorAll('.hero-badge');
-    versionBadges.forEach(el => {
-      el.textContent = `✨ Version ${version} is out`;
-    });
   } catch {
     console.warn("Failed to fetch latest version from GitHub.");
   }
@@ -60,13 +55,13 @@ function initCopyButtons() {
         const originalHTML = btn.innerHTML;
         // Check icon
         btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
-        btn.classList.add('copied');
         btn.style.borderColor = "#10b981";
+        btn.style.color = "#10b981";
         
         setTimeout(() => {
           btn.innerHTML = originalHTML;
-          btn.classList.remove('copied');
           btn.style.borderColor = "";
+          btn.style.color = "";
         }, 2000);
       });
     });
@@ -78,7 +73,6 @@ function initScrollAnimations() {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        // Handle staggered delays
         const delay = entry.target.getAttribute('data-delay');
         if (delay) {
           entry.target.style.transitionDelay = `${delay}s`;
@@ -95,21 +89,6 @@ function initScrollAnimations() {
   });
 }
 
-// ── Bento Card Mouse Glow ──
-function initBentoGlow() {
-  const cards = document.querySelectorAll('.bento-hover');
-  
-  document.getElementById('bento-container')?.addEventListener('mousemove', e => {
-    for (const card of cards) {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      
-      card.style.setProperty('--mouse-x', `${x}px`);
-      card.style.setProperty('--mouse-y', `${y}px`);
-    }
-  });
-}
 
 // ── Install Tabs ──
 function initInstallTabs() {
@@ -118,11 +97,9 @@ function initInstallTabs() {
 
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
-      // Remove active from all
       tabs.forEach(t => t.classList.remove('active'));
       panes.forEach(p => p.classList.remove('active'));
 
-      // Add active to clicked
       tab.classList.add('active');
       const targetId = `tab-${tab.getAttribute('data-tab')}`;
       document.getElementById(targetId).classList.add('active');
@@ -150,7 +127,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initMobileNav();
   initCopyButtons();
   initScrollAnimations();
-  initBentoGlow();
   initInstallTabs();
   initAnalyticsEvents();
 });
