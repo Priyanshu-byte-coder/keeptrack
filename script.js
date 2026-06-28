@@ -121,24 +121,6 @@ function initAnalyticsEvents() {
   });
 }
 
-// ── Demo Video Autoplay on Scroll ──
-function initDemoAutoplay() {
-  const video = document.getElementById('demo-video');
-  if (!video) return;
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        video.play().catch(() => {});
-      } else {
-        video.pause();
-      }
-    });
-  }, { threshold: 0.3 });
-
-  observer.observe(video);
-}
-
 // ── Init ──
 document.addEventListener('DOMContentLoaded', () => {
   updateDownloadLinks();
@@ -147,5 +129,4 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollAnimations();
   initInstallTabs();
   initAnalyticsEvents();
-  initDemoAutoplay();
 });
