@@ -10,7 +10,10 @@ echo ""
 OS=$(uname -s)
 case "$OS" in
   MINGW*|MSYS*|CYGWIN*)
-    echo "Windows detected. Please download manually:"
+    echo "Windows detected. Use PowerShell instead:"
+    echo "  irm https://raw.githubusercontent.com/Priyanshu-byte-coder/keeptrack/gh-pages/install.ps1 | iex"
+    echo ""
+    echo "Or download manually:"
     echo "  https://github.com/Priyanshu-byte-coder/keeptrack/releases/latest"
     exit 0
     ;;
@@ -24,10 +27,10 @@ for cmd in curl unzip; do
   fi
 done
 
-# Fetch latest version
+# Get latest version via redirect (no API, no rate limit)
 echo "Fetching latest version..."
-LATEST=$(curl -fsSL https://api.github.com/repos/Priyanshu-byte-coder/keeptrack/releases/latest \
-  | grep '"tag_name"' | sed -E 's/.*"v([^"]+)".*/\1/')
+REDIRECT_URL=$(curl -fsSI -o /dev/null -w '%{url_effective}' -L https://github.com/Priyanshu-byte-coder/keeptrack/releases/latest)
+LATEST=$(echo "$REDIRECT_URL" | grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+$' | sed 's/^v//')
 
 if [ -z "$LATEST" ]; then
   echo "Error: Could not determine latest version."
