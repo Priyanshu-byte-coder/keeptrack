@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KeepTrack — You download. We remember.</title>
+  <meta name="description" content="Chrome extension that captures download intent at download time. Classify, track, and clean up your Downloads folder. Free, open source, zero telemetry.">
+  <meta property="og:title" content="KeepTrack — You download. We remember.">
+  <meta property="og:description" content="Chrome extension that captures download intent at download time.">
+  <meta property="og:image" content="assets/logo.png">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="assets/icon-128.png" type="image/png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ── Nav ── -->
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="nav-brand">
+        <img src="assets/icon-128.png" alt="" class="nav-logo">
+        <span>Keep<span class="green">Track</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#demo">Demo</a>
+        <a href="#install">Install</a>
+        <a href="https://github.com/Priyanshu-byte-coder/keeptrack" target="_blank" rel="noopener">GitHub</a>
+      </div>
+      <button class="nav-toggle" aria-label="Menu" aria-expanded="false">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── Hero ── -->
+  <section id="hero">
+    <div class="container">
+      <img src="assets/logo.png" alt="KeepTrack" class="hero-logo animate-on-scroll">
+      <h1 class="animate-on-scroll">Keep<span class="green">Track</span></h1>
+      <p class="tagline animate-on-scroll">You download. We remember.</p>
+      <p class="hero-subtitle animate-on-scroll">
+        Every file you download makes sense in the moment. Two weeks later, your Downloads
+        folder is 200 files deep. KeepTrack captures that decision at download time.
+      </p>
+      <div class="hero-buttons animate-on-scroll">
+        <a href="https://github.com/Priyanshu-byte-coder/keeptrack/releases/download/v1.2.0/keeptrack-v1.2.0.zip"
+           class="btn btn-download"
+           data-download-link
+           data-show-version
+           data-goatcounter-click="download-hero">
+          Download v1.2.0
+        </a>
+        <a href="https://github.com/Priyanshu-byte-coder/keeptrack"
+           class="btn btn-secondary"
+           target="_blank" rel="noopener"
+           data-goatcounter-click="star-github">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          Star on GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Stats Bar ── -->
+  <section id="stats">
+    <div class="stats-bar animate-on-scroll">
+      <img src="https://img.shields.io/github/downloads/Priyanshu-byte-coder/keeptrack/total?style=flat-square&label=downloads&color=E53935" alt="Downloads">
+      <img src="https://img.shields.io/github/stars/Priyanshu-byte-coder/keeptrack?style=flat-square&label=stars&color=F57F17" alt="Stars">
+      <img src="https://img.shields.io/github/v/release/Priyanshu-byte-coder/keeptrack?style=flat-square&color=2E7D32" alt="Version">
+      <img src="https://img.shields.io/badge/telemetry-zero-brightgreen?style=flat-square" alt="Zero Telemetry">
+    </div>
+  </section>
+
+  <!-- ── Setup Video ── -->
+  <section id="setup" class="section">
+    <div class="container">
+      <h2 class="section-title animate-on-scroll">Get started in 30 seconds</h2>
+      <div class="video-container animate-on-scroll">
+        <!-- Replace VIDEO_ID with your unlisted YouTube video ID -->
+        <div class="video-placeholder">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          <p>Setup video coming soon</p>
+        </div>
+        <!-- When ready, replace the placeholder div above with:
+        <iframe src="https://www.youtube-nocookie.com/embed/VIDEO_ID"
+                title="KeepTrack Setup" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+        -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Features ── -->
+  <section id="features" class="section">
+    <div class="container">
+      <h2 class="section-title animate-on-scroll">Features</h2>
+      <div class="features-grid">
+
+        <div class="feature-card animate-on-scroll">
+          <div class="feature-icon green-bg">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a9 9 0 019 9c0 3.88-3.08 7.13-6 9.15C13.65 21.35 12.83 22 12 22s-1.65-.65-3-1.85C6.08 18.13 3 14.88 3 11a9 9 0 019-9z"/><circle cx="12" cy="11" r="3"/></svg>
+          </div>
+          <h3>Smart Classification</h3>
+          <p>Automatically classifies every download as keep, temporary, or ambiguous using file type, filename keywords, and source domain.</p>
+        </div>
+
+        <div class="feature-card animate-on-scroll">
+          <div class="feature-icon yellow-bg">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+          </div>
+          <h3>Gentle Notifications</h3>
+          <p>Only interrupts for ambiguous downloads. High-confidence decisions are silent. One tap to keep or toss.</p>
+        </div>
+
+        <div class="feature-card animate-on-scroll">
+          <div class="feature-icon red-bg">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+          </div>
+          <h3>Delete Expired Files</h3>
+          <p>Delete individual files or bulk-delete all expired files directly from the popup. One click, files gone from disk.</p>
+        </div>
+
+        <div class="feature-card animate-on-scroll">
+          <div class="feature-icon blue-bg">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="5" width="22" height="14" rx="7" ry="7"/><circle cx="16" cy="12" r="3"/></svg>
+          </div>
+          <h3>Label Toggle</h3>
+          <p>Change your mind anytime. Toggle any file between Keep, Temporary, and Ambiguous from the Settings page with one click.</p>
+        </div>
+
+        <div class="feature-card animate-on-scroll">
+          <div class="feature-icon orange-bg">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <h3>Clean Up Now</h3>
+          <p>Skip the expiry wait. Instantly flag all temporary files for review when you want a clean Downloads folder right now.</p>
+        </div>
+
+        <div class="feature-card animate-on-scroll">
+          <div class="feature-icon green-bg">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>Privacy-First</h3>
+          <p>Zero telemetry. Zero network calls. All data stays in your browser. Fully open source — read every line of code.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Demo Video ── -->
+  <section id="demo" class="section section-alt">
+    <div class="container">
+      <h2 class="section-title animate-on-scroll">See it in action</h2>
+      <div class="video-container animate-on-scroll">
+        <div class="video-placeholder">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          <p>Feature demo coming soon</p>
+        </div>
+        <!-- When ready, replace with YouTube iframe -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Privacy ── -->
+  <section id="privacy" class="section">
+    <div class="container">
+      <h2 class="section-title animate-on-scroll">Zero Telemetry. 100% Local.</h2>
+      <div class="privacy-grid">
+        <div class="privacy-item animate-on-scroll">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          <h4>No telemetry</h4>
+          <p>No data ever leaves your browser</p>
+        </div>
+        <div class="privacy-item animate-on-scroll">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          <h4>No network calls</h4>
+          <p>Works fully offline after install</p>
+        </div>
+        <div class="privacy-item animate-on-scroll">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          <h4>All data local</h4>
+          <p>Stored in chrome.storage.local on your machine</p>
+        </div>
+        <div class="privacy-item animate-on-scroll">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          <h4>Open source</h4>
+          <p>Read every line of code on GitHub</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Install ── -->
+  <section id="install" class="section section-alt">
+    <div class="container">
+      <h2 class="section-title animate-on-scroll">Install</h2>
+      <div class="install-grid">
+
+        <div class="install-card primary animate-on-scroll">
+          <div class="install-badge">Recommended</div>
+          <h3>Direct Download</h3>
+          <p>Download the ZIP, unzip, load in Chrome.</p>
+          <a href="https://github.com/Priyanshu-byte-coder/keeptrack/releases/download/v1.2.0/keeptrack-v1.2.0.zip"
+             class="btn btn-download"
+             data-download-link
+             data-goatcounter-click="download-install-zip">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download ZIP
+          </a>
+          <ol class="install-steps">
+            <li>Download the ZIP above</li>
+            <li>Unzip to any folder</li>
+            <li>Open <code>chrome://extensions</code></li>
+            <li>Enable <strong>Developer Mode</strong></li>
+            <li>Click <strong>Load unpacked</strong> → select folder</li>
+          </ol>
+        </div>
+
+        <div class="install-card animate-on-scroll">
+          <h3>Terminal</h3>
+          <p>One command. Auto-detects latest version.</p>
+          <div class="code-block">
+            <code>curl -fsSL https://raw.githubusercontent.com/Priyanshu-byte-coder/keeptrack/gh-pages/install.sh | bash</code>
+            <button class="copy-btn" data-goatcounter-click="download-install-curl">Copy</button>
+          </div>
+          <p class="install-note">Works on macOS and Linux. Requires curl and unzip.</p>
+        </div>
+
+        <div class="install-card animate-on-scroll">
+          <h3>Clone from Source</h3>
+          <p>For developers who want to inspect or modify.</p>
+          <div class="code-block">
+            <code>git clone https://github.com/Priyanshu-byte-coder/keeptrack.git</code>
+            <button class="copy-btn" data-goatcounter-click="download-install-git">Copy</button>
+          </div>
+          <p class="install-note">Then load unpacked from <code>chrome://extensions</code>.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <img src="assets/icon-128.png" alt="" class="footer-logo">
+        <span>Keep<span class="green">Track</span></span>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/Priyanshu-byte-coder/keeptrack" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/Priyanshu-byte-coder/keeptrack/issues" target="_blank" rel="noopener">Issues</a>
+        <a href="https://github.com/Priyanshu-byte-coder/keeptrack/releases" target="_blank" rel="noopener">Releases</a>
+        <a href="https://github.com/Priyanshu-byte-coder/keeptrack/blob/main/LICENSE" target="_blank" rel="noopener">MIT License</a>
+      </div>
+      <p class="footer-copy">Made by Priyanshu</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <!-- GoatCounter: uncomment after signup at goatcounter.com
+  <script data-goatcounter="https://keeptrack.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  -->
+</body>
+</html>
