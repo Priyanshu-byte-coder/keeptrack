@@ -3,16 +3,18 @@
  * Negative = temporary signal. Positive = keep signal.
  */
 export const EXTENSION_SCORES = {
-  // Installers / executables — strong temporary
-  '.exe': -45,
+  // Installers — strong temporary
   '.msi': -45,
   '.dmg': -45,
   '.pkg': -40,
-  '.deb': -40,
-  '.rpm': -40,
-  '.appimage': -40,
-  '.snap': -35,
-  '.flatpak': -35,
+  '.deb': -25,
+  '.rpm': -25,
+  '.snap': -25,
+  '.flatpak': -25,
+
+  // Executables / portable apps — weak temporary (could be app itself, not installer)
+  '.exe': -15,
+  '.appimage': 5,
 
   // Torrents / incomplete — strong temporary
   '.torrent': -50,
